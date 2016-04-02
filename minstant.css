@@ -1,0 +1,149 @@
+/* CSS declarations go here */
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+ul {
+	list-style: none;
+	list-style-type: none;
+	padding-left: 0px;
+}
+
+li {
+	display: inline-block;
+}
+
+.user_avatar{
+	text-align: left;
+	min-height:45px;
+	text-align: left;
+	border-bottom: 1px solid #e5e5e5;
+	padding: 10px 10px;
+	width: 100%;
+}
+
+.user_avatar:hover {
+	background: #f4f4f4;
+}
+
+.avatar_img{
+	height:45px;
+	width: 45px;
+	border-radius: 50%;
+	border: 1px solid #e5e5e5;
+}
+
+.user_name {
+	padding-left: 10px;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.messages-container {
+	height: 600px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	background: #e5e5e5;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.tri-right.border.right-in:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+  left: auto;
+	right: -4px;
+  top: 30px;
+	bottom: auto;
+	border: 20px solid;
+	border-color: #fff transparent transparent #fff;
+}
+.tri-right.right-in:after{
+	content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: auto;
+    right: -16px;
+    top: 0px;
+    bottom: auto;
+    border: 12px solid;
+    border-color: #fff transparent transparent #fff;
+}
+
+.tri-right.left-in:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -16px;
+	right: auto;
+	top: 0px;
+	bottom: auto;
+	border: 12px solid;
+	border-color: #0084ff #0084ff transparent transparent;
+}
+
+.message {
+	margin: 5px 0px;
+	width: 85%;
+	position: relative;
+}
+
+.others_message {
+	text-align: left;
+	float: left;
+	margin-left: 12px !important;
+
+}
+.my_message {
+	text-align: right;
+	float: right;
+	margin-right: 12px !important;
+}
+
+.message_text {
+	border-radius: 2px;
+	padding: 8px;
+	display: inline-block;
+}
+.my_message .message_text {
+	background: #fff;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.others_message .message_text {
+	background: #0084ff;
+	color: white;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.my_avatar_img {
+	float: right;
+}
+
+.others_avatar_img {
+	float: left;
+}
+
+.message_input {
+	border: none;
+	border-bottom: 2px solid;
+	outline: none;
+	width: calc(100% - 65px);
+}
+
+.emoji, .emoji-in-message {
+	height: 45px;
+	width: 45px;
+}

@@ -1,0 +1,130 @@
+<head>
+  <title>minstant</title>
+</head>
+
+<body>
+</body>
+
+<!-- this is the main template used by iron:router to build the page -->
+<template name="ApplicationLayout">
+	{{> yield "header"}}
+
+	<div class="container">
+	{{> yield "main"}}
+	</div>
+</template>
+
+<!-- top level template for the nav bar -->
+<template name="navbar">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">
+        Minstant!
+      </a>
+    </div>
+    <div class="nav navbar-nav">
+    {{> loginButtons}}
+</div>
+  </div>
+</nav>
+</template>
+
+<!-- Top level template for the lobby page -->
+<template name="lobby_page">
+	{{> available_user_list}}
+</template>
+
+<!-- display a list of users -->
+<template name="available_user_list">
+	<h2>Choose someone to chat with:</h2>
+	<div class="row">
+	{{#each users}}
+	{{> available_user}}
+	{{/each}}
+</div>
+</template>
+
+<!-- display an individual user -->
+<template name="available_user">
+	<div class="col-md-12 col-xs-12">
+        {{#if isMyUser _id}}
+        {{else}}
+    		<div class="user_avatar float-left">
+
+    			<!-- <div class="bg-success">
+                    <img src="/{{profile.avatar}}" class="avatar_img">
+                    <span> </span>{{getUsername _id}} (YOU)
+    			</div> -->
+
+    			<a href="/chat/{{_id}}">
+                    <img src="/{{profile.avatar}}" class="avatar_img">
+    				<span class="user_name">{{getUsername _id}}</span>
+    			</a>
+    		</div>
+        {{/if}}
+	</div>
+</template>
+
+
+<!-- Top level template for the chat page -->
+<template name="chat_page">
+    <h3>Chat with {{other_user}}</h3>
+	<div class="row">
+		<ul class="messages-container col-md-12">
+			{{#each messages}}
+			{{> chat_message}}
+			{{/each}}
+		</ul>
+	</div>
+    <div class="row">
+		<div class="col-md-12">
+			<form class="js-send-chat">
+			<input class="input message_input" type="text" name="chat" placeholder="Type a message here...">
+			<button class="btn btn-default">send</button>
+            <div>
+                <ul>
+                    {{#each smiles}}
+                    <li>
+                        <img class="emoji"
+                        src="/{{img}}.png" alt="{{img}}"/>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </form>
+		</div>
+	</div>
+</template>
+
+<!-- simple template that displays a message -->
+<template name="chat_message">
+    {{#if isMyMessage user}}
+        <li style="width: 100%;">
+            <img src="/{{getUserAvatar(user)}}" class="avatar_img my_avatar_img"/>
+            <div class="message my_message tri-right right-in">
+                <div class="message_text">
+                    {{#if isEmojiMessage text}}
+                        <img class="emoji-in-message" src="/{{getEmoji(text)}}.png" />
+                    {{else}}
+                        {{text}}
+                    {{/if}}
+                </div>
+            </div>
+        </li>
+    {{else}}
+        <li style="width: 100%;">
+            <img src="/{{getUserAvatar(user)}}" class="avatar_img others_avatar_img"/>
+            <div class="message others_message tri-right left-in">
+                <div class="message_text ">
+                    {{#if isEmojiMessage text}}
+                        <img class="emoji-in-message" src="/{{getEmoji(text)}}.png" />
+                    {{else}}
+                        {{text}}
+                    {{/if}}
+                </div>
+            </div>
+        </li>
+
+    {{/if}}
+</template>
