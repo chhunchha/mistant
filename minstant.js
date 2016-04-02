@@ -15,14 +15,22 @@ if (Meteor.isClient) {
     };
 
     var updateScroll = Tracker.autorun(function () {
-        console.log(getMessages().length);
+        var messages = getMessages();
         setTimeout(function(){
             var messages_container = document.getElementsByClassName("messages-container");
-            if(messages_container)
+            if(messages_container[0])
                 messages_container[0].scrollTop = messages_container[0].scrollHeight + 100;
         }, 200);
     });
 
+    var loggedout = Tracker.autorun(function(computation){
+        var currentUser = Meteor.user()
+        if(currentUser) {
+
+        } else if(!computation.firstRun) {
+            Route.go('/');
+        }
+    });
 
 
   // set up the main template the the router will use to build pages
@@ -38,6 +46,14 @@ if (Meteor.isClient) {
 
   // specify a route that allows the current user to chat to another users
   Router.route('/chat/:_id', function () {
+
+      if(Meteor.userId())
+      {
+
+      } else {
+          Router.go('/');
+          return;
+      }
     // the user they want to chat to has id equal to
     // the id sent in after /chat/...
     var otherUserId = this.params._id;
@@ -49,7 +65,7 @@ if (Meteor.isClient) {
                 ]};
     var chat = Chats.findOne(filter);
     if (!chat){// no chat matching the filter - need to insert a new one
-      chatId = Chats.insert({user1Id:Meteor.userId(), user2Id:otherUserId});
+      chatId = Meteor.call("newChat", otherUserId);
     }
     else {// there is a chat going already - use that.
       chatId = chat._id;
@@ -219,5 +235,8 @@ if (Meteor.isServer) {
 Meteor.methods({
     updateChat: function(chat) {
         Chats.update(chat._id, chat);
+    },
+    newChat : function(otherUserId){
+        return Chats.insert({user1Id:Meteor.userId(), user2Id:otherUserId});
     }
 });
