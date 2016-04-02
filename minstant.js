@@ -225,7 +225,11 @@ if (Meteor.isServer) {
   });
 
   Meteor.publish("chats", function(){
-      return Chats.find();
+      var filter = {$or:[
+                  {user1Id:this.userId},
+                  {user2Id:this.userId}
+                  ]};
+      return Chats.find(filter);
   });
   Meteor.publish("users", function(){
       return Meteor.users.find();
